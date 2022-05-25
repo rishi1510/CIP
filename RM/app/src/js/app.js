@@ -25,16 +25,7 @@ function connect(){
     web3.eth.defaultAccount = web3.currentProvider.selectedAddress;
     console.log("Web3 Connected:"+ web3.eth.defaultAccount );
 
-    (function loop() {
-        if (web3.eth.accounts[0]) {
-          console.log(web3.eth.accounts[0]);
-        } else {
-          setTimeout(loop, 100);
-        }
-      }());
-
     return web3.currentProvider.selectedAddress;
-
 }
     
 window.addEventListener('load', async () => {

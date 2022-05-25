@@ -95,8 +95,12 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
+                            <a href="http://localhost:3002/react">Chat</a>
+                        </li>
+                        <li>
                             <a href="./index.html">Logout</a>
                         </li>
+                        
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -182,7 +186,7 @@
                                 <tr>
                                     <th>Doctor</th>
                                     <th class="publicKeyDoctor">Public Key</th>
-                                    <th>Revoke access</th>
+                                    <th id="checker">Revoke Access</th>
                                 </tr>
                             </table>
                         </div>
@@ -208,14 +212,22 @@
     toggleRecordsButton = 0;
     var recordHash = "";
     
-
     $(window).load(function() {
+        let params = new URLSearchParams(location.search);
+        params.get('key');
+
         connect();
 
         $("#records").hide();
         $(".alert-info").hide();
         $(".alert-danger").hide();
         key = web3.currentProvider.selectedAddress;
+
+        if(key == null) {
+            key = params.get('key');
+            document.getElementById("checker").innerHTML = "Revoke access"
+        }
+
         key = key.toLocaleLowerCase();
 
         var a = "";
@@ -415,6 +427,7 @@
         Row = element.parentNode.parentNode;
         var Cells = Row.getElementsByTagName("td");
         var docKey = Row.cells[1].firstChild.nodeValue;
+        alert(docKey);
         contractInstance.revoke_access(docKey, {gas: 1000000}, function(error){
             if (!error) {
                 document.getElementById("accessDoc").deleteRow(rowNo);

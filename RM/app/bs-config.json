@@ -1,1 +1,7 @@
-{"server": {  "baseDir": "./src"}}
+{
+    "server": {  
+        "baseDir": "./src"
+    },
+
+    "notify": false
+}
